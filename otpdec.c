@@ -34,18 +34,15 @@ int main(int argc, char *argv[])
 	else if(argc == 2) // runs if there is one cmd argument
 	{
 		char newname[100];
-		char filename[100];
-		{
+
 		FILE* file = fopen(argv[1], "r"); // file which stores otp
 		fgets(input_key, 300, file); // read the otp from file
 		scan_input(input_key, key); // convert to array 
-		fclose(file);
-		}
-		//strcpy(filename, argv[1]);
-		//strcpy(newname, strcat(filename, ".used"));
-		//printf("%s\n", newname);
-		//printf("%d\n", rename(filename, newname));
-		remove(argv[1]);
+		fclose(file); // close file
+
+		sprintf(newname, "%s.used", argv[1]); // save new name: argv[1] + .used
+		rename(argv[1], newname); // rename file
+
 	}
 	else // prints if wrong number of arguments is supplied
 	{
