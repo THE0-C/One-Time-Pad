@@ -10,7 +10,7 @@ Encode and decode from file or enter pad manually.
 ```
 ./random # Output the pad to terminal
 ./random -n <filename> # Creats or writes the pad to <filename>
-./random -b <number> # Creats <number> ammount of pads
+./random -n <filename> -b <number> # Creats <number> ammount of pads with format <filename>-<number>
 ```
 
 ## otpgen:
