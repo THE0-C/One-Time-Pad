@@ -18,7 +18,7 @@ void randomgen(FILE *file)
 
 void bulkfiles(int number, char name[])
 {
-	for(int i = 0; i<number; i++) // for all files to be made
+	for(int i = 1; i < (number + 1); i++) // for all files to be made
 	{
 		char temp[50]; // init temp file
 		sprintf(temp, "%s-%d", name, i); // put future file name in to temp
@@ -30,7 +30,6 @@ void bulkfiles(int number, char name[])
 
 int main(int argc, char *argv[])
 {
-	int num, i;
     	srand(time(NULL));  // Seed ONCE
 	FILE *file;
 
