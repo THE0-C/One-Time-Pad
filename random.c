@@ -17,8 +17,7 @@ void randomgen(FILE *file)
 }
 
 void bulkfiles(int number, char name[])
-{
-	for(int i = 1; i < (number + 1); i++) // for all files to be made
+{ for(int i = 1; i < (number + 1); i++) // for all files to be made
 	{
 		char temp[50]; // init temp file
 		sprintf(temp, "%s-%d", name, i); // put future file name in to temp
@@ -51,7 +50,7 @@ int main(int argc, char *argv[])
 	}
 	else // output correct useage
 	{
-		printf("./random # Output the pad to terminal\n./random -n <filename> # Creats or writes the pad to <filename>\n./random -n <filename> -b <number> # Creats <number> ammount of pads with format <filename>-<number>\n");
+		printf("INCORRECT USAGE\nrandom # Output the pad to terminal\n./random -n <filename> # Creats or writes the pad to <filename>\n./random -n <filename> -b <number> # Creats <number> ammount of pads with format <filename>-<number>\n");
 	}
     	
 }
