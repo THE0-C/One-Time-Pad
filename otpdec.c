@@ -1,17 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void scan_input(char *text_input, int int_array[100]) // converts input string to input int array
-{
-	int temp; // temp
-
-	for(int j = 0; j <= 300; j += 3) // loops for all charecters
-	{
-		sscanf(&text_input[j], "%2x", &temp); // scans for 2 digit hex number
-		int_array[j / 3] = temp; // set respective value in int array
-	}
-}
+#include "parse.h"
 
 int main(int argc, char *argv[])
 {
