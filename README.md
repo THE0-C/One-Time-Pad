@@ -9,8 +9,10 @@ Encode and decode from file or enter pad manually.
 
 ```
 ./random # Output the pad to terminal
-./random -n <filename> # Creats or writes the pad to <filename>
-./random -n <filename> -b <number> # Creats <number> ammount of pads with format <filename>-<number>
+options:
+-n number of hex pairs per pad
+-f filename
+-b number of batch files to make
 ```
 
 ## otpgen:

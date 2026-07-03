@@ -1,0 +1,6 @@
+* 
+!.gitignore
+!otpdec.c
+!otpgen.c
+!random.c
+!README.md

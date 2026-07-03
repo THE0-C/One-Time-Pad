@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <unistd.h> 
 
-void randomgen(FILE *file)
+void randomgen(FILE *file, int len)
 {
 	int num, i;
-	for(i=0; i<100;) // Loop 100 times for random numbers
+	for(i=0; i<len;) // Loop 100 times for random numbers
     	{
         	num = rand(); // make random number
         	num = num % 59; // idk what i did here, wrote this a long time ago
@@ -16,13 +17,13 @@ void randomgen(FILE *file)
     	}
 }
 
-void bulkfiles(int number, char name[])
+void bulkfiles(int number, char name[], int len)
 { for(int i = 1; i < (number + 1); i++) // for all files to be made
 	{
 		char temp[50]; // init temp file
 		sprintf(temp, "%s-%d", name, i); // put future file name in to temp
 		FILE *file = fopen(temp, "w"); // creat file with name temp
-		randomgen(file); // fill file
+		randomgen(file, len); // fill file
 		fclose(file); //close file
 	}
 }
@@ -31,26 +32,56 @@ int main(int argc, char *argv[])
 {
     	srand(time(NULL));  // Seed ONCE
 	FILE *file;
-
-	if(argc == 1) // if no arguments are given, print output to screen
-	{	
-		file = stdout;
-		randomgen(file);
-	}
-	else if(argc == 3 && (strcmp(argv[1], "-n") == 0)) // if -n <file> is given writethe output to that file
-	{	
-		file = fopen(argv[2], "w");
-		randomgen(file);
-	}
-	else if(argc == 5 && (strcmp(argv[1], "-n") == 0) && (strcmp(argv[3], "-b") == 0)) // if -n and -b write output into argv[4] ammount of files in format argv[2]-argv[4]
-	{	
-		int numfiles;
-		sscanf(argv[4], "%d", &numfiles); // get number of files to make
-		bulkfiles(numfiles, argv[2]); // call bulkfiles with number of pads and the name
-	}
-	else // output correct useage
+	int len = 100;
+	int opt;
+	int bulk = 0;
+	char filename[100] = "";
+	while((opt = getopt(argc, argv, "f:n:b:h")) != -1)
 	{
-		printf("INCORRECT USAGE\nrandom # Output the pad to terminal\n./random -n <filename> # Creats or writes the pad to <filename>\n./random -n <filename> -b <number> # Creats <number> ammount of pads with format <filename>-<number>\n");
+		switch(opt)
+		{
+			case 'f':
+				strcpy(filename, optarg);
+				break;
+			case 'n':
+				len = atoi(optarg);
+				break;
+			case 'b':
+				if (atoi(optarg) >= 0)
+				bulk = atoi(optarg);
+				break;
+			case '?':	
+			case 'h':
+				printf("INCORRECT USAGE\n");
+				exit(-1);
+				
+		}
 	}
-    	
+	if (bulk == 0)
+	{
+		if (strlen(filename) == 0)
+		{
+			file = stdout;
+			randomgen(file, len);
+		}
+		else
+		{
+			file = fopen(filename, "w");
+			randomgen(file, len);
+		}
+	}
+	else
+	{
+		if(strlen(filename) == 0)
+		{
+			bulkfiles(bulk, "pad", len);
+		}
+		else
+		{
+			bulkfiles(bulk, filename, len);
+		}
+
+	}
+	
+	return 0;
 }
